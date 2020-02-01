@@ -54,7 +54,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-
+*.meta
 # Crashlytics generated file
 crashlytics-build.properties
 GGJ2020/Packages/manifest.json
