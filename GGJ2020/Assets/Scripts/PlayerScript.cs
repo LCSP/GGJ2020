@@ -14,6 +14,7 @@ public class PlayerScript : MonoBehaviour
 
     public Animator laserInicio;
     public Animator laserLargo;
+    public GameObject brazo;
 
 
     public Text TextoVida;
@@ -81,6 +82,53 @@ public class PlayerScript : MonoBehaviour
             transform.GetComponent<Animator>().SetBool("Caminar", false);
         }
         
+        if(Input.GetAxis("Vertical") > 0 && Input.GetAxis("Horizontal") > 0)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(laserLargo.transform.position, transform.right);
+            if (hit.collider != null)
+            {
+                //1 - 5
+                //hit - x
+                //Debug.Log(hit.collider.gameObject.name);
+
+
+                Vector2 vectorLargo = new Vector2(0.0f, 0.1f);
+                vectorLargo.x = hit.distance * 0.5f;
+                laserLargo.transform.localScale = vectorLargo;
+                //Debug.Log(hit.distance / 0.5 );
+                //laserLargoLine.SetPosition(1, new Vector2(hit.distance, 0));
+                laserInicio.SetBool("Atacando", true);
+                laserLargo.SetBool("Atacando", true);
+                if (hit.collider.gameObject.tag == "Enemy")
+                {
+                    EnemyScript eScript = hit.collider.gameObject.GetComponent<EnemyScript>();
+                    eScript.life--;
+                }
+            }
+            else
+            {
+
+                Vector2 vectorLargo = new Vector2(0.0f, 0.1f);
+                vectorLargo.x = 100;
+                laserLargo.transform.localScale = vectorLargo;
+                //Debug.Log(hit.distance / 0.5 );
+                //laserLargoLine.SetPosition(1, new Vector2(hit.distance, 0));
+                laserInicio.SetBool("Atacando", true);
+                laserLargo.SetBool("Atacando", true);
+
+            }
+
+            if (!lSound) StartCoroutine(LaserSound());
+
+        }
+        else
+        {
+            laserInicio.SetBool("Atacando", false);
+            laserLargo.SetBool("Atacando", false);
+            laserAudio.Stop();
+            lSound = false;
+        }
+
 
         if (Input.GetButton("ButtonAXbox"))
         {
@@ -94,12 +142,12 @@ public class PlayerScript : MonoBehaviour
         //Debug.Log(Input.GetAxis("ButtonRTXbox"));
         if(Input.GetAxis("ButtonRTXbox") > 0)
         {
-            RaycastHit2D hit = Physics2D.Raycast(laserLargo.transform.position, (Vector2)transform.forward);
+            RaycastHit2D hit = Physics2D.Raycast(laserLargo.transform.position, transform.right);
             if(hit.collider != null)
             {
                 //1 - 5
                 //hit - x
-
+                //Debug.Log(hit.collider.gameObject.name);
 
 
                 Vector2 vectorLargo = new Vector2(0.0f, 0.1f);
@@ -138,6 +186,8 @@ public class PlayerScript : MonoBehaviour
             laserAudio.Stop();
             lSound = false;
         }
+
+      
 
         /*if(Input.GetAxis("ButtonRTXbox") < 0)
         {

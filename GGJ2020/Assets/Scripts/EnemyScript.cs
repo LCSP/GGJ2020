@@ -10,7 +10,7 @@ public class EnemyScript : MonoBehaviour
     [Range(0, 10)]
     public int range = 5;
 
-    public Text lifeText;
+    //public Text lifeText;
 
     public List<Vector2> points;
     public int currentPos = 0;
@@ -43,7 +43,7 @@ public class EnemyScript : MonoBehaviour
         
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(points[currentPos].x, points[currentPos].y) + initialPos, movementSpeed * Time.deltaTime);
 
-        lifeText.text = life.ToString();
+        //lifeText.text = life.ToString();
 
         
     }
