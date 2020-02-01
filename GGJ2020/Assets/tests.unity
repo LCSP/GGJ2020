@@ -237,9 +237,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1064273301}
   - component: {fileID: 1064273300}
-  - component: {fileID: 1064273299}
   - component: {fileID: 1064273298}
   - component: {fileID: 1064273302}
+  - component: {fileID: 1064273299}
   m_Layer: 0
   m_Name: Master shief2
   m_TagString: Untagged
@@ -283,7 +283,9 @@ MonoBehaviour:
   Jump: {fileID: 21300000, guid: e28107ff8f7a8944fb9689448b9bfc53, type: 3}
   Idle: {fileID: 21300000, guid: 711e7c738e41fe94abbc0a89e9efe97e, type: 3}
   cano: {fileID: 1559667450}
-  laserMat: {fileID: 2100000, guid: dee1991cdadcaad49801ed23ae5b5780, type: 2}
+  laserRed: {fileID: 21300000, guid: 1c900f6ef566ace4ea33598a27fb6264, type: 3}
+  laserBlue: {fileID: 21300000, guid: ec93d963e6a7a4d46a4c861c9bdeec9d, type: 3}
+  laserGreen: {fileID: 21300000, guid: 2e6b4685344bd8a4b82f1704fc4043cf, type: 3}
   speed: 1
   jumpForce: 1
 --- !u!212 &1064273300
@@ -483,7 +485,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1559667450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.024, y: -0.105, z: 0}
+  m_LocalPosition: {x: -0.0249, y: -0.105, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1064273301}
