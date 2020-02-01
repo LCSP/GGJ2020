@@ -104,22 +104,24 @@ public class PlayerScript : MonoBehaviour
             {
                 canvasRenderer.sprite = Jump;
                 isGrounded = false;
-                rg.velocity = new Vector2(rg.velocity.x, transform.localScale.x * jumpForce);//Vector2.up * speed;
+                rg.velocity = new Vector2(rg.velocity.x, transform.localScale.x * (jumpForce * 3));//Vector2.up * speed;
             }
         }
         //Debug.Log(Input.GetAxis("ButtonRTXbox"));
         if(Input.GetKey(KeyCode.LeftShift))
         {
-            RaycastHit2D hit = Physics2D.Raycast(laserLargo.transform.position, transform.right);
+            RaycastHit2D hit = Physics2D.Raycast(laserLargo.transform.position, laserLargo.transform.right);
             if(hit.collider != null)
             {
                 //1 - 5
                 //hit - x
-                //Debug.Log(hit.collider.gameObject.name);
+                /*string x = hit.collider.gameObject.name;
+                if (x != "Tilemap") Debug.Log("ENEMY");*/
+                Debug.DrawRay(laserLargo.transform.position, laserLargo.transform.right, Color.black);
 
 
                 Vector2 vectorLargo = new Vector2(0.0f, 0.1f);
-                vectorLargo.x = hit.distance * 0.5f;
+                vectorLargo.x = hit.distance / 2f;
                 laserLargo.transform.localScale = vectorLargo;
                 //Debug.Log(hit.distance / 0.5 );
                 //laserLargoLine.SetPosition(1, new Vector2(hit.distance, 0));
@@ -131,7 +133,7 @@ public class PlayerScript : MonoBehaviour
                     eScript.life--;
                 }
             }
-            else
+            /*else
             {
 
                 Vector2 vectorLargo = new Vector2(0.0f, 0.1f);
@@ -142,7 +144,7 @@ public class PlayerScript : MonoBehaviour
                 laserInicio.SetBool("Atacando", true);
                 laserLargo.SetBool("Atacando", true);
                 
-            }
+            }*/
 
             if (!lSound) StartCoroutine(LaserSound());
 
@@ -215,6 +217,7 @@ public class PlayerScript : MonoBehaviour
         if(collision.gameObject.tag == "Coin")
         {
             life++;
+            TextoVida.text = life.ToString();
             Destroy(collision.gameObject);
         }
 
@@ -224,12 +227,13 @@ public class PlayerScript : MonoBehaviour
             int rndNumber = Random.Range(1, 4);
             List<GameObject> TuercasCaidas = new List<GameObject>();
             life = life - rndNumber;
+            TextoVida.text = life.ToString();
             for (int i = 0; i <= rndNumber; i++)
             {
-                GameObject tuerca = Instantiate(Tuerca, transform.position, Quaternion.identity);
+                GameObject tuerca = Instantiate(Tuerca, collision.gameObject.transform.position, Quaternion.identity);
                 Vector2 velocity = new Vector2(Random.Range(1.0f, 6.0f), Random.Range(1.0f, 6.0f));
                 tuerca.GetComponent<Rigidbody2D>().AddForce(velocity * 20f);
-                Destroy(tuerca, 3f);
+                Destroy(tuerca, 10f);
             }
             Vector2 JumpVel = new Vector2();
             if (_right)
