@@ -8,6 +8,8 @@ public class CameraFollow : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     public Transform target;
 
+    public static CameraFollow INSTANCE;
+   
     private Camera camera;
 
     private void Awake()

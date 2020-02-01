@@ -41,10 +41,16 @@ public class PlayerScript : MonoBehaviour
     private float lowJumpMultiplier = 2f;
     private float fallMultiplier = 2.5f;
 
+    public static PlayerScript INSTANCE;
+
     bool lSound = false;
+    bool canJump = false;
 
     void Awake()
     {
+        
+        INSTANCE = this;
+
         TextoVida.text = life.ToString();
         rg = GetComponent<Rigidbody2D>();
         canvasRenderer = GetComponent<SpriteRenderer>();
@@ -74,6 +80,10 @@ public class PlayerScript : MonoBehaviour
             //canvasRenderer.flipX = true;
             rg.velocity = new Vector2(-(transform.localScale.x * speed), rg.velocity.y);//Vector2.left * speed;
         }
+        if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)) 
+        {
+            rg.velocity = new Vector2(0, rg.velocity.y);
+        }
 
         if (rg.velocity.x != 0)
         {
@@ -98,13 +108,14 @@ public class PlayerScript : MonoBehaviour
         }
 
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && canJump)
         {
             if (isGrounded)
             {
                 canvasRenderer.sprite = Jump;
                 isGrounded = false;
-                rg.velocity = new Vector2(rg.velocity.x, transform.localScale.x * (jumpForce * 3));//Vector2.up * speed;
+
+                rg.velocity = new Vector2(rg.velocity.x, transform.localScale.x * (jumpForce * 3.5f));//Vector2.up * speed;
             }
         }
         //Debug.Log(Input.GetAxis("ButtonRTXbox"));
@@ -117,7 +128,7 @@ public class PlayerScript : MonoBehaviour
                 //hit - x
                 /*string x = hit.collider.gameObject.name;
                 if (x != "Tilemap") Debug.Log("ENEMY");*/
-                Debug.DrawRay(laserLargo.transform.position, laserLargo.transform.right, Color.black);
+                //Debug.DrawRay(laserLargo.transform.position, laserLargo.transform.right, Color.black);
 
 
                 Vector2 vectorLargo = new Vector2(0.0f, 0.1f);
@@ -157,7 +168,7 @@ public class PlayerScript : MonoBehaviour
             lSound = false;
         }
 
-      
+
 
         /*if(Input.GetAxis("ButtonRTXbox") < 0)
         {
@@ -183,7 +194,23 @@ public class PlayerScript : MonoBehaviour
             laserLargo.SetBool("Atacando", false);
         }*/
 
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, Vector2.up, 4f);
 
+        if (hit2 && hit2.collider.gameObject.CompareTag("Ground"))
+        {
+            canJump = false;
+            rg.velocity = new Vector2(rg.velocity.x, rg.velocity.y-1);
+        }
+        else
+        {
+            canJump = true;
+        }
+
+        if (rg.velocity.y != 0) isGrounded = false;
+        else isGrounded = true;
+
+        Debug.Log(isGrounded);
+        gameObject.GetComponent<Animator>().SetBool("EnPiso", isGrounded);
     }
     IEnumerator LaserSound()
     {
@@ -199,20 +226,15 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-        if (isGrounded)
-        {
-            canvasRenderer.sprite = Idle;
-        }
-        
 
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        /*if (collision.gameObject.tag == "Ground")
         {
            isGrounded = true;
-        }
+        }*/
 
         if(collision.gameObject.tag == "Coin")
         {
@@ -238,11 +260,11 @@ public class PlayerScript : MonoBehaviour
             Vector2 JumpVel = new Vector2();
             if (_right)
             {
-                JumpVel = new Vector2(-75f, 75f);
+                JumpVel = new Vector2(-75f, 50f);
             }
             else
             {
-                JumpVel = new Vector2(75f, 75f);
+                JumpVel = new Vector2(75f, 50f);
             }
             rg.AddForce(JumpVel * 25f);
         }
@@ -262,11 +284,11 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    private void OnCollisionExit2D(Collision2D collision)
+    /*private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
             isGrounded = false;
         }
-    }
+    }*/
 }

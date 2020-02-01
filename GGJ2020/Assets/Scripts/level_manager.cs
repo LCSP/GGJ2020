@@ -2,10 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class Tuerca : MonoBehaviour
+public class level_manager : MonoBehaviour
 {
+
+    public static level_manager INSTANCE;
+
+    public List<GameObject> levels;
     
+
+    private void Awake()
+    {
+        INSTANCE = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +25,4 @@ public class Tuerca : MonoBehaviour
     {
         
     }
-
-   
-
 }
