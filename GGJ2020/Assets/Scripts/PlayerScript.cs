@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -14,8 +15,13 @@ public class PlayerScript : MonoBehaviour
     public Animator laserInicio;
     public Animator laserLargo;
 
+
+    public Text TextoVida;
+
     public GameObject laserLargoGO;
     public LineRenderer laserLargoLine;
+
+    public int life = 100;
 
     private bool _right;
     private bool isGrounded = false;
@@ -31,6 +37,7 @@ public class PlayerScript : MonoBehaviour
 
     void Awake()
     {
+        TextoVida.text = life.ToString();
         rg = GetComponent<Rigidbody2D>();
         canvasRenderer = GetComponent<SpriteRenderer>();
     }
@@ -38,7 +45,8 @@ public class PlayerScript : MonoBehaviour
     void FixedUpdate()
     {
         //Debug.Log(rg.velocity.y);
-        
+
+
 
         if (Input.GetAxis("Horizontal") > 0)
         {
@@ -47,14 +55,25 @@ public class PlayerScript : MonoBehaviour
             _right = true;
             rg.velocity = new Vector2(transform.localScale.x * speed, rg.velocity.y);//Vector2.right * speed;
         }
-        
+
         if (Input.GetAxis("Horizontal") < 0)
         {
             transform.rotation = Quaternion.Euler(0, 180f, 0);
+
             _right = false;
             //canvasRenderer.flipX = true;
             rg.velocity = new Vector2(-(transform.localScale.x * speed), rg.velocity.y);//Vector2.left * speed;
         }
+
+        if (rg.velocity.x != 0)
+        {
+            transform.GetComponent<Animator>().SetBool("Caminar", true);
+        }
+        else
+        {
+            transform.GetComponent<Animator>().SetBool("Caminar", false);
+        }
+        
 
         if (Input.GetButton("ButtonAXbox"))
         {
@@ -82,6 +101,11 @@ public class PlayerScript : MonoBehaviour
                 //laserLargoLine.SetPosition(1, new Vector2(hit.distance, 0));
                 laserInicio.SetBool("Atacando", true);
                 laserLargo.SetBool("Atacando", true);
+                if(hit.collider.gameObject.tag == "Enemy")
+                {
+                    EnemyScript eScript = hit.collider.gameObject.GetComponent<EnemyScript>();
+                    eScript.life--;
+                }
             }
         }
         else
@@ -125,10 +149,8 @@ public class PlayerScript : MonoBehaviour
         {
             canvasRenderer.sprite = Idle;
         }
-        /*if (rg.velocity.y <= 0)
-        {
-            canvasRenderer.sprite = Idle;
-        }*/
+        
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -137,7 +159,22 @@ public class PlayerScript : MonoBehaviour
         {
            isGrounded = true;
         }
+
+        
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            TextoVida.text = life.ToString();
+            life--;
+        }
+    }
+
+
+
+
 
     private void OnCollisionExit2D(Collision2D collision)
     {
