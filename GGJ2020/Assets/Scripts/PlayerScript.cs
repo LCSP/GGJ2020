@@ -11,16 +11,20 @@ public class PlayerScript : MonoBehaviour
     public Sprite Idle;
     public GameObject cano;
 
-    public Sprite laserRed;
-    public Sprite laserBlue;
-    public Sprite laserGreen;
+    public Animator laserInicio;
+    public Animator laserLargo;
 
+    public GameObject laserLargoGO;
+    public LineRenderer laserLargoLine;
+
+    private bool _right;
     private bool isGrounded = false;
 
     [Range(0.0f, 1.0f)]
     public float speed = 1f;
     [Range(0.0f, 1.0f)]
     public float jumpForce = 1.0f;
+
 
     private float lowJumpMultiplier = 2f;
     private float fallMultiplier = 2.5f;
@@ -40,12 +44,14 @@ public class PlayerScript : MonoBehaviour
         {
             //canvasRenderer.flipX = false;
             transform.rotation = Quaternion.Euler(0, 0, 0);
+            _right = true;
             rg.velocity = new Vector2(transform.localScale.x * speed, rg.velocity.y);//Vector2.right * speed;
         }
         
         if (Input.GetAxis("Horizontal") < 0)
         {
             transform.rotation = Quaternion.Euler(0, 180f, 0);
+            _right = false;
             //canvasRenderer.flipX = true;
             rg.velocity = new Vector2(-(transform.localScale.x * speed), rg.velocity.y);//Vector2.left * speed;
         }
@@ -62,21 +68,56 @@ public class PlayerScript : MonoBehaviour
         //Debug.Log(Input.GetAxis("ButtonRTXbox"));
         if(Input.GetAxis("ButtonRTXbox") > 0)
         {
-            RaycastHit2D hit = Physics2D.Raycast(cano.transform.position, Vector2.right);
+            RaycastHit2D hit = Physics2D.Raycast(laserLargo.transform.position, _right ? Vector2.right : -Vector2.right);
             if(hit.collider != null)
             {
-                //todo
+                //1 - 5
+                //hit - x
+
+
+                Vector2 vectorLargo = new Vector2(0.0f, 0.1f);
+                vectorLargo.x = hit.distance * 0.5f;
+                laserLargo.transform.localScale = vectorLargo;
+                //Debug.Log(hit.distance / 0.5 );
+                //laserLargoLine.SetPosition(1, new Vector2(hit.distance, 0));
+                laserInicio.SetBool("Atacando", true);
+                laserLargo.SetBool("Atacando", true);
             }
         }
+        else
+        {
+            laserInicio.SetBool("Atacando", false);
+            laserLargo.SetBool("Atacando", false);
+        }
 
-        
+        /*if(Input.GetAxis("ButtonRTXbox") < 0)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(laserLargo.transform.position, -Vector2.right);
+            if (hit.collider != null)
+            {
+                //1 - 5
+                //hit - x
+
+
+                Vector2 vectorLargo = new Vector2(0.0f, 0.1f);
+                vectorLargo.x = hit.distance * 0.5f;
+                laserLargo.transform.localScale = vectorLargo;
+                //Debug.Log(hit.distance / 0.5 );
+                //laserLargoLine.SetPosition(1, new Vector2(hit.distance, 0));
+                laserInicio.SetBool("Atacando", true);
+                laserLargo.SetBool("Atacando", true);
+            }
+        }
+        else
+        {
+            laserInicio.SetBool("Atacando", false);
+            laserLargo.SetBool("Atacando", false);
+        }*/
+
 
     }
 
-    void laserShoot()
-    {
-
-    } 
+    
 
     void Update()
     {
