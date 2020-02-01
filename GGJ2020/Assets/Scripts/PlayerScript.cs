@@ -18,6 +18,10 @@ public class PlayerScript : MonoBehaviour
 
     public Text TextoVida;
 
+    public AudioClip LaserStart;
+    public AudioClip LaserLoop;
+    private AudioSource laserAudio;
+
     public GameObject laserLargoGO;
     public LineRenderer laserLargoLine;
 
@@ -35,11 +39,14 @@ public class PlayerScript : MonoBehaviour
     private float lowJumpMultiplier = 2f;
     private float fallMultiplier = 2.5f;
 
+    bool lSound = false;
+
     void Awake()
     {
         TextoVida.text = life.ToString();
         rg = GetComponent<Rigidbody2D>();
         canvasRenderer = GetComponent<SpriteRenderer>();
+        laserAudio = transform.GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -87,11 +94,12 @@ public class PlayerScript : MonoBehaviour
         //Debug.Log(Input.GetAxis("ButtonRTXbox"));
         if(Input.GetAxis("ButtonRTXbox") > 0)
         {
-            RaycastHit2D hit = Physics2D.Raycast(laserLargo.transform.position, _right ? Vector2.right : -Vector2.right);
+            RaycastHit2D hit = Physics2D.Raycast(laserLargo.transform.position, (Vector2)transform.forward);
             if(hit.collider != null)
             {
                 //1 - 5
                 //hit - x
+
 
 
                 Vector2 vectorLargo = new Vector2(0.0f, 0.1f);
@@ -107,11 +115,28 @@ public class PlayerScript : MonoBehaviour
                     eScript.life--;
                 }
             }
+            else
+            {
+
+                Vector2 vectorLargo = new Vector2(0.0f, 0.1f);
+                vectorLargo.x = 100;
+                laserLargo.transform.localScale = vectorLargo;
+                //Debug.Log(hit.distance / 0.5 );
+                //laserLargoLine.SetPosition(1, new Vector2(hit.distance, 0));
+                laserInicio.SetBool("Atacando", true);
+                laserLargo.SetBool("Atacando", true);
+                
+            }
+
+            if (!lSound) StartCoroutine(LaserSound());
+
         }
         else
         {
             laserInicio.SetBool("Atacando", false);
             laserLargo.SetBool("Atacando", false);
+            laserAudio.Stop();
+            lSound = false;
         }
 
         /*if(Input.GetAxis("ButtonRTXbox") < 0)
@@ -139,6 +164,15 @@ public class PlayerScript : MonoBehaviour
         }*/
 
 
+    }
+    IEnumerator LaserSound()
+    {
+        lSound = true;
+        laserAudio.clip = LaserStart;
+        laserAudio.Play();
+        yield return new WaitForSeconds(LaserStart.length);
+        laserAudio.clip = LaserLoop;
+        laserAudio.Play();
     }
 
     
