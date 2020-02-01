@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
     private Rigidbody2D rg;
     [Range(1, 10)]
@@ -31,11 +31,14 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            rg.velocity.x += Vector2.right * speed;
+            /*Vector2 rgVelocity = rg.velocity;
+            rgVelocity.x = Vector2.right * speed;*/
+
+            rg.velocity += Vector2.right * speed;
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            rg.velocity.x -= Vector2.right * speed;
+            rg.velocity -= Vector2.left * speed;
         }
 
     }
