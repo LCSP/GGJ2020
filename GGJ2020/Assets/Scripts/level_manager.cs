@@ -8,21 +8,14 @@ public class level_manager : MonoBehaviour
     public static level_manager INSTANCE;
 
     public List<GameObject> levels;
-    
 
     private void Awake()
     {
         INSTANCE = this;
     }
-    // Start is called before the first frame update
-    void Start()
+    
+    public void SetLevel(int index)
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
