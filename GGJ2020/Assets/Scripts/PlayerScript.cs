@@ -10,7 +10,10 @@ public class PlayerScript : MonoBehaviour
     public Sprite Jump;
     public Sprite Idle;
     public GameObject cano;
-    public Material laserMat;
+
+    public Sprite laserRed;
+    public Sprite laserBlue;
+    public Sprite laserGreen;
 
     private bool isGrounded = false;
 
