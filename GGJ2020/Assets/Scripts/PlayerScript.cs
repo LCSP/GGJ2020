@@ -65,18 +65,7 @@ public class PlayerScript : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(cano.transform.position, Vector2.right);
             if(hit.collider != null)
             {
-                float distance = Mathf.Abs(hit.point.x - cano.transform.position.x);
-                GL.PushMatrix();
-                GL.LoadOrtho();
-
-                GL.Begin(GL.LINES);
-
-                GL.Color(Color.red);
-                GL.Vertex(cano.transform.position);
-                GL.Vertex(hit.point);
-                GL.End();
-
-                GL.PopMatrix();
+                //todo
             }
         }
 
@@ -84,7 +73,12 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-     void Update()
+    void laserShoot()
+    {
+
+    } 
+
+    void Update()
     {
         if (isGrounded)
         {
