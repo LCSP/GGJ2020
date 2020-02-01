@@ -9,6 +9,7 @@ TagManager:
   - Coin
   - Enemy_Plant
   - Enemy_Roof
+  - Enemy_Jump
   layers:
   - Default
   - TransparentFX
