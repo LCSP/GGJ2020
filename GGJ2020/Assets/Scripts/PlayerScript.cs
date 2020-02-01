@@ -56,7 +56,7 @@ public class PlayerScript : MonoBehaviour
 
 
 
-        if (Input.GetAxis("Horizontal") > 0)
+        if (Input.GetKey(KeyCode.D))
         {
             //canvasRenderer.flipX = false;
             transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -64,8 +64,9 @@ public class PlayerScript : MonoBehaviour
             rg.velocity = new Vector2(transform.localScale.x * speed, rg.velocity.y);//Vector2.right * speed;
         }
 
-        if (Input.GetAxis("Horizontal") < 0)
+        if (Input.GetKey(KeyCode.A))
         {
+            
             transform.rotation = Quaternion.Euler(0, 180f, 0);
 
             _right = false;
@@ -81,56 +82,22 @@ public class PlayerScript : MonoBehaviour
         {
             transform.GetComponent<Animator>().SetBool("Caminar", false);
         }
-        
-        if(Input.GetAxis("Vertical") > 0 && Input.GetAxis("Horizontal") > 0)
+
+        if ((Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.LeftArrow)) || (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow)))
         {
-            RaycastHit2D hit = Physics2D.Raycast(laserLargo.transform.position, transform.right);
-            if (hit.collider != null)
-            {
-                //1 - 5
-                //hit - x
-                //Debug.Log(hit.collider.gameObject.name);
-
-
-                Vector2 vectorLargo = new Vector2(0.0f, 0.1f);
-                vectorLargo.x = hit.distance * 0.5f;
-                laserLargo.transform.localScale = vectorLargo;
-                //Debug.Log(hit.distance / 0.5 );
-                //laserLargoLine.SetPosition(1, new Vector2(hit.distance, 0));
-                laserInicio.SetBool("Atacando", true);
-                laserLargo.SetBool("Atacando", true);
-                if (hit.collider.gameObject.tag == "Enemy")
-                {
-                    EnemyScript eScript = hit.collider.gameObject.GetComponent<EnemyScript>();
-                    eScript.life--;
-                }
-            }
-            else
-            {
-
-                Vector2 vectorLargo = new Vector2(0.0f, 0.1f);
-                vectorLargo.x = 100;
-                laserLargo.transform.localScale = vectorLargo;
-                //Debug.Log(hit.distance / 0.5 );
-                //laserLargoLine.SetPosition(1, new Vector2(hit.distance, 0));
-                laserInicio.SetBool("Atacando", true);
-                laserLargo.SetBool("Atacando", true);
-
-            }
-
-            if (!lSound) StartCoroutine(LaserSound());
-
+            brazo.transform.localRotation = Quaternion.Euler(0, 0, 45);
+        }
+        else if(Input.GetKey(KeyCode.UpArrow))
+        {
+            brazo.transform.localRotation = Quaternion.Euler(0, 0, 90);
         }
         else
         {
-            laserInicio.SetBool("Atacando", false);
-            laserLargo.SetBool("Atacando", false);
-            laserAudio.Stop();
-            lSound = false;
+            brazo.transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
 
 
-        if (Input.GetButton("ButtonAXbox"))
+        if (Input.GetKey(KeyCode.Space))
         {
             if (isGrounded)
             {
@@ -140,7 +107,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
         //Debug.Log(Input.GetAxis("ButtonRTXbox"));
-        if(Input.GetAxis("ButtonRTXbox") > 0)
+        if(Input.GetKey(KeyCode.LeftShift))
         {
             RaycastHit2D hit = Physics2D.Raycast(laserLargo.transform.position, transform.right);
             if(hit.collider != null)
