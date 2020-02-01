@@ -153,6 +153,10 @@ public class PlayerScript : MonoBehaviour
                 {
                     hit.collider.gameObject.GetComponent<jumping_enemy>().life -= 0.1f;
                 }
+                if (hit.collider.gameObject.CompareTag("Enemy_Orb"))
+                {
+                    hit.collider.gameObject.GetComponent<orb_enemy>().life -= 0.1f;
+                }
 
             }
             /*else
@@ -279,6 +283,8 @@ public class PlayerScript : MonoBehaviour
             }
             rg.AddForce(JumpVel * 25f);
         }
+
+        
     }
 
     void OnTriggerEnter2D(Collider2D collision)
