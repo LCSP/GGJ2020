@@ -149,6 +149,10 @@ public class PlayerScript : MonoBehaviour
                 {
                     hit.collider.gameObject.GetComponent<plant_enemy>().life -= 0.1f;
                 }
+                if (hit.collider.gameObject.CompareTag("Enemy_Jump"))
+                {
+                    hit.collider.gameObject.GetComponent<jumping_enemy>().life -= 0.1f;
+                }
 
             }
             /*else
@@ -285,6 +289,11 @@ public class PlayerScript : MonoBehaviour
             life--;
             
 
+        }
+
+        if(collision.gameObject.tag == "Enemy_Roof")
+        {
+            getDamage(10, collision.gameObject);
         }
 
         
