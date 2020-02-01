@@ -7,7 +7,7 @@ public class door : MonoBehaviour
 {
     public int toUnlock;
     public string toRoom;
-    
+    public Transform testo;
 
 
     // Start is called before the first frame update
@@ -23,7 +23,7 @@ public class door : MonoBehaviour
         {
             if (PlayerScript.INSTANCE.life >= toUnlock && Input.GetKey(KeyCode.Return))
             {
-                
+                //transform.GetChild(0).gameObject.SetActive(true);
             }
         }
     }
