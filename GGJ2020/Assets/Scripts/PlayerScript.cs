@@ -16,6 +16,7 @@ public class PlayerScript : MonoBehaviour
     public Animator laserLargo;
     public GameObject brazo;
 
+    public GameObject Tuerca;
 
     public Text TextoVida;
 
@@ -222,9 +223,6 @@ public class PlayerScript : MonoBehaviour
             life--;
         }
     }
-
-
-
 
 
     private void OnCollisionExit2D(Collision2D collision)
