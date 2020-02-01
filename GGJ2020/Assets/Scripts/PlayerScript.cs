@@ -142,7 +142,14 @@ public class PlayerScript : MonoBehaviour
                 {
                     EnemyScript eScript = hit.collider.gameObject.GetComponent<EnemyScript>();
                     eScript.life--;
+
+                    
                 }
+                if (hit.collider.gameObject.CompareTag("Enemy_Plant"))
+                {
+                    hit.collider.gameObject.GetComponent<plant_enemy>().life -= 0.1f;
+                }
+
             }
             /*else
             {
@@ -281,6 +288,33 @@ public class PlayerScript : MonoBehaviour
         }
 
         
+    }
+
+    public void getDamage(int damage, GameObject gmO)
+    {
+        life -= damage;
+        //tira tuercas
+        int rndNumber = Random.Range(1, 4);
+        List<GameObject> TuercasCaidas = new List<GameObject>();
+        life = life - rndNumber;
+        TextoVida.text = life.ToString();
+        for (int i = 0; i <= rndNumber; i++)
+        {
+            GameObject tuerca = Instantiate(Tuerca, gmO.transform.position, Quaternion.identity);
+            Vector2 velocity = new Vector2(Random.Range(1.0f, 6.0f), Random.Range(1.0f, 6.0f));
+            tuerca.GetComponent<Rigidbody2D>().AddForce(velocity * 20f);
+            Destroy(tuerca, 10f);
+        }
+        Vector2 JumpVel = new Vector2();
+        if (_right)
+        {
+            JumpVel = new Vector2(-75f, 35f);
+        }
+        else
+        {
+            JumpVel = new Vector2(75f, 35f);
+        }
+        rg.AddForce(JumpVel * 25f);
     }
 
 
