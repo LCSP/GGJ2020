@@ -212,7 +212,36 @@ public class PlayerScript : MonoBehaviour
            isGrounded = true;
         }
 
-        
+        if(collision.gameObject.tag == "Coin")
+        {
+            life++;
+            Destroy(collision.gameObject);
+        }
+
+        if(collision.gameObject.tag == "Enemy")
+        {
+            //tira tuercas
+            int rndNumber = Random.Range(1, 4);
+            List<GameObject> TuercasCaidas = new List<GameObject>();
+            life = life - rndNumber;
+            for (int i = 0; i <= rndNumber; i++)
+            {
+                GameObject tuerca = Instantiate(Tuerca, transform.position, Quaternion.identity);
+                Vector2 velocity = new Vector2(Random.Range(1.0f, 6.0f), Random.Range(1.0f, 6.0f));
+                tuerca.GetComponent<Rigidbody2D>().AddForce(velocity * 20f);
+                Destroy(tuerca, 3f);
+            }
+            Vector2 JumpVel = new Vector2();
+            if (_right)
+            {
+                JumpVel = new Vector2(-75f, 75f);
+            }
+            else
+            {
+                JumpVel = new Vector2(75f, 75f);
+            }
+            rg.AddForce(JumpVel * 25f);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -221,7 +250,11 @@ public class PlayerScript : MonoBehaviour
         {
             TextoVida.text = life.ToString();
             life--;
+            
+
         }
+
+        
     }
 
 
