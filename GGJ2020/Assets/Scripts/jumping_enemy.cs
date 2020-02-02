@@ -39,9 +39,9 @@ public class jumping_enemy : MonoBehaviour
 
             }
         }
-        else
+        if(rb.velocity.y == 0)
         {
-            Debug.Log("saltando");
+            transform.GetComponent<Animator>().SetBool("jumping", false);
         }
     }
 

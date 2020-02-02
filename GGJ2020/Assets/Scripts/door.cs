@@ -1,40 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class door : MonoBehaviour
 {
     public int toUnlock;
-    public string toRoom;
-    public Transform testo;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(transform.GetChild(0).gameObject.activeSelf)
-        {
-            if (PlayerScript.INSTANCE.life >= toUnlock && Input.GetKey(KeyCode.Return))
-            {
-                //transform.GetChild(0).gameObject.SetActive(true);
-            }
-        }
-    }
-
+    public bool isLocked;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player") && isLocked)
         {
             transform.GetChild(0).gameObject.SetActive(true);
-
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player") && isLocked && Input.GetKeyDown(KeyCode.Return))
+        {
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            isLocked = false;
         }
     }
 
