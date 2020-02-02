@@ -8,6 +8,7 @@ public class jumping_enemy : MonoBehaviour
     private Rigidbody2D rb;
     public float life = 20f;
     PlayerScript playerScript;
+    public GameObject Tuerca;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,17 @@ public class jumping_enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(life < 0)
+        {
+            for (int i = 0; i <= 5; i++)
+            {
+                GameObject tuerca = Instantiate(Tuerca, transform.position, Quaternion.identity);
+                Vector2 velocity = new Vector2(Random.Range(1.0f, 6.0f), Random.Range(1.0f, 6.0f));
+                tuerca.GetComponent<Rigidbody2D>().AddForce(velocity * 20f);
+            }
+            Destroy(gameObject);
+        }
+
         if (!IsJumping())
         {
             Debug.Log("NO saltando");
@@ -47,5 +59,13 @@ public class jumping_enemy : MonoBehaviour
     {
         return !gameObject.GetComponentInChildren<OnFloor>().onFloor;
     }
-    
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playerScript.getDamage(10, transform.gameObject);
+        }
+    }
+
 }

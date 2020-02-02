@@ -16,7 +16,7 @@ public class EnemyScript : MonoBehaviour
     public int currentPos = 0;
     public GameObject Tuerca;
 
-    public int life = 100;
+    public float life = 100;
 
     // Start is called before the first frame update
 

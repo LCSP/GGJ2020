@@ -235,4 +235,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  life: 20
+  life: 5
+  Tuerca: {fileID: 0}

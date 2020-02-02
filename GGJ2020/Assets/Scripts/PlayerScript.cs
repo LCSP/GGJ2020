@@ -134,12 +134,10 @@ public class PlayerScript : MonoBehaviour
                 //laserLargoLine.SetPosition(1, new Vector2(hit.distance, 0));
                 laserInicio.SetBool("Atacando", true);
                 laserLargo.SetBool("Atacando", true);
+
                 if(hit.collider.gameObject.tag == "Enemy")
                 {
-                    EnemyScript eScript = hit.collider.gameObject.GetComponent<EnemyScript>();
-                    eScript.life--;
-
-                    
+                    hit.collider.gameObject.GetComponent<EnemyScript>().life -= 0.1f;
                 }
                 if (hit.collider.gameObject.CompareTag("Enemy_Plant"))
                 {
@@ -149,9 +147,13 @@ public class PlayerScript : MonoBehaviour
                 {
                     hit.collider.gameObject.GetComponent<jumping_enemy>().life -= 0.1f;
                 }
-                if (hit.collider.gameObject.CompareTag("Enemy_Orb"))
+                /*if (hit.collider.gameObject.CompareTag("Enemy_Orb"))
                 {
                     hit.collider.gameObject.GetComponent<orb_enemy>().life -= 0.1f;
+                }*/
+                if (hit.collider.gameObject.CompareTag("Enemy_Roof"))
+                {
+                    hit.collider.gameObject.GetComponent<roof_enemy>().life -= 0.1f;
                 }
 
             }
@@ -304,7 +306,7 @@ public class PlayerScript : MonoBehaviour
     {
         life -= damage;
         //tira tuercas
-        int rndNumber = Random.Range(1, 4);
+        int rndNumber = Random.Range(1, 5);
         List<GameObject> TuercasCaidas = new List<GameObject>();
         life = life - rndNumber;
         TextoVida.text = life.ToString();
@@ -327,6 +329,7 @@ public class PlayerScript : MonoBehaviour
         rg.AddForce(JumpVel * 25f);
     }
 
+   
 
     /*private void OnCollisionExit2D(Collision2D collision)
     {
