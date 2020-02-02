@@ -26,5 +26,10 @@ public class orb : MonoBehaviour
             playerScript.getDamage(20, transform.gameObject);
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

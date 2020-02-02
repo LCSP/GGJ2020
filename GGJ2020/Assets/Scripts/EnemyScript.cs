@@ -22,8 +22,12 @@ public class EnemyScript : MonoBehaviour
 
     private Vector2 initialPos;
 
+    bossfight bss;
+
     void Start()
     {
+        bss = bossfight.INSTANCE;
+
         initialPos = (Vector2)transform.position;
     }
 
@@ -36,6 +40,11 @@ public class EnemyScript : MonoBehaviour
         }
         if(life < 0)
         {
+            if (transform.CompareTag("BossEnemie"))
+            {
+                bss.EnemiesCount--;
+            }
+
             for (int i = 0; i <= 5; i++)
             {
                 GameObject tuerca = Instantiate(Tuerca, transform.position, Quaternion.identity);

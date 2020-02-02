@@ -11,10 +11,11 @@ public class roof_enemy : MonoBehaviour
     public float life = 10f;
     public float BulletSpeed = 10.0f;
     private float t1=0;
-
+    bossfight bss;
     // Start is called before the first frame update
     void Start()
     {
+        bss = bossfight.INSTANCE;
         player = PlayerScript.INSTANCE.transform;
     }
 
@@ -23,6 +24,10 @@ public class roof_enemy : MonoBehaviour
     {
         if(life < 0)
         {
+            if (transform.CompareTag("BossEnemie"))
+            {
+                bss.EnemiesCount--;
+            }
             for (int i = 0; i <= 5; i++)
             {
                 GameObject tuerca = Instantiate(Tuerca, transform.position, Quaternion.identity);

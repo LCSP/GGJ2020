@@ -11,6 +11,7 @@ TagManager:
   - Enemy_Roof
   - Enemy_Jump
   - Enemy_Orb
+  - BossEnemie
   layers:
   - Default
   - TransparentFX

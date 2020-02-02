@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -57,7 +58,10 @@ public class PlayerScript : MonoBehaviour
     {
         //Debug.Log(rg.velocity.y);
 
-
+        if(life < 0)
+        {
+            SceneManager.LoadScene("death");
+        }
 
         if (Input.GetKey(KeyCode.D))
         {
@@ -155,6 +159,22 @@ public class PlayerScript : MonoBehaviour
                 {
                     hit.collider.gameObject.GetComponent<roof_enemy>().life -= 0.1f;
                 }
+                if (hit.collider.gameObject.CompareTag("BossEnemie"))
+                {
+                    if (hit.collider.gameObject.name.Contains("Enemy"))
+                    {
+                        hit.collider.gameObject.GetComponent<EnemyScript>().life -= 0.1f;
+                    }
+                    if (hit.collider.gameObject.name.Contains("Enemy3"))
+                    {
+                        hit.collider.gameObject.GetComponent<jumping_enemy>().life -= 0.1f;
+                    }
+                    if (hit.collider.gameObject.name.Contains("SlimeKun"))
+                    {
+                        hit.collider.gameObject.GetComponent<jumping_enemy>().life -= 0.1f;
+                    }
+                }
+                
 
             }
             /*else

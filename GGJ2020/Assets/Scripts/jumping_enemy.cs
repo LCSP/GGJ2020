@@ -9,9 +9,12 @@ public class jumping_enemy : MonoBehaviour
     public float life = 20f;
     PlayerScript playerScript;
     public GameObject Tuerca;
+    bossfight bss;
     // Start is called before the first frame update
     void Start()
     {
+        bss = bossfight.INSTANCE;
+        player = GameObject.FindGameObjectsWithTag("Player")[0].transform;
         playerScript = PlayerScript.INSTANCE;
         rb = GetComponent<Rigidbody2D>();
     }
@@ -21,6 +24,10 @@ public class jumping_enemy : MonoBehaviour
     {
         if(life < 0)
         {
+            if (transform.CompareTag("BossEnemie"))
+            {
+                bss.EnemiesCount--;
+            }
             for (int i = 0; i <= 5; i++)
             {
                 GameObject tuerca = Instantiate(Tuerca, transform.position, Quaternion.identity);

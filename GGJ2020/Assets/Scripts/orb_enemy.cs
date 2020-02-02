@@ -20,7 +20,7 @@ public class orb_enemy : MonoBehaviour
     }
     void Start()
     {
-        
+        player = GameObject.FindGameObjectsWithTag("Player")[0].transform;
     }
 
     // Update is called once per frame
@@ -28,6 +28,7 @@ public class orb_enemy : MonoBehaviour
     {
         if(life <= 0)
         {
+
             Destroy(gameObject);
         }
         

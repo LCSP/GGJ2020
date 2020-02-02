@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108805f33d00a404c80908318578888b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 2961141693192692948, guid: b35da408c20eb244e8e550debdd13b76, type: 3}
   orb: {fileID: 5752723601973419676, guid: 855459dd8213b22479732f4d7439bc1d, type: 3}
   tiro: {fileID: 4362290429343631308}
   life: 50

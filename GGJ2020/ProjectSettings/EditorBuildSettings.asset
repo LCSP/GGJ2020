@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/menu.unity
+    guid: 203a68744b7529c439f8167862cb4ea3
+  - enabled: 1
+    path: Assets/Scenes/hint.unity
+    guid: 673ca709f3cfcf84980fef114f25a7db
+  - enabled: 1
     path: Assets/Levels/lvl_1.unity
     guid: b9c6107912244f44eb6fc85eed77b712
   - enabled: 1
-    path: Assets/Levels/farm/farm_1.unity
-    guid: 031424548343f464b890a0bb9597873b
+    path: Assets/Scenes/death.unity
+    guid: fb913ec1e2a4b6049a4959f172cc5c6f
+  - enabled: 1
+    path: Assets/Scenes/end_game.unity
+    guid: 491903a1de738bc499af0007b5d4b620
   m_configObjects: {}

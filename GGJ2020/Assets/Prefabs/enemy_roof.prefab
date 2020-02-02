@@ -157,8 +157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 4170059705641477116, guid: f98dbd96c0bc05f448acf54f299430ce, type: 3}
-  player: {fileID: 0}
-  Tuerca: {fileID: 0}
+  player: {fileID: 5481351649705047773, guid: b35da408c20eb244e8e550debdd13b76, type: 3}
+  Tuerca: {fileID: 5015242819402556361, guid: 89c4dd67c08b74746b5aab114dea06a9, type: 3}
   life: 10
   BulletSpeed: 10
 --- !u!61 &5067947388365877528
