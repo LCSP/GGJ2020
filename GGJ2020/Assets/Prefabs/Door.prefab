@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51c31f1783bda9448a8495f7afb59d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelManager: {fileID: 0}
   otra_puerta: {x: 0, y: 0}
   Index_del_otro_level: 0
 --- !u!61 &3370879155582199960
@@ -399,6 +400,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toUnlock: 150
   isLocked: 0
+  SpritePuertaReparada: {fileID: 21300000, guid: def1d8ef033a0054082ee654ebc52ead,
+    type: 3}
 --- !u!1 &2066186977776789916
 GameObject:
   m_ObjectHideFlags: 0

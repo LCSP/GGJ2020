@@ -16,7 +16,7 @@ public class TP : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            levelManager.SetLevel(Index_del_otro_level, otra_puerta);
+            levelManager.SetLevel(Index_del_otro_level, otra_puerta);   //INDEX DEL OTRO NIVEL SEGUN EL ARREGLO DE LEVEL MANAGER
         }
     }
 }

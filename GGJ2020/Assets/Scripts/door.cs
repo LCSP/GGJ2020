@@ -6,6 +6,7 @@ public class door : MonoBehaviour
 {
     public int toUnlock;
     public bool isLocked;
+    public Sprite SpritePuertaReparada;
     PlayerScript playerScript;
 
     private void Start()
@@ -14,6 +15,7 @@ public class door : MonoBehaviour
         if (!isLocked)
         {
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            transform.GetComponent<SpriteRenderer>().sprite = SpritePuertaReparada;
         }
     }
 
@@ -29,6 +31,7 @@ public class door : MonoBehaviour
         if(collision.gameObject.CompareTag("Player") && isLocked && Input.GetKeyDown(KeyCode.Return) && playerScript.life >= toUnlock)
         {
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            transform.GetComponent<SpriteRenderer>().sprite = SpritePuertaReparada;
             isLocked = false;
         }
     }
