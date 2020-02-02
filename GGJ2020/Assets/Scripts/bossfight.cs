@@ -21,7 +21,7 @@ public class bossfight : MonoBehaviour
 
     public List<AudioClip> clips;
 
-    public int EnemiesCount = 30;
+    public int EnemiesCount = 10;
 
     public Image TextContainer;
 
@@ -66,7 +66,7 @@ public class bossfight : MonoBehaviour
         for (int i = 0; i < enemiesAmount; i++)
         {
             int rnd = Random.Range(0, Enemies.Count);
-            GameObject tempOb = Instantiate(Enemies[rnd], spawner.transform.position + Random.insideUnitSphere * 100, Quaternion.identity);
+            GameObject tempOb = Instantiate(Enemies[rnd], spawner.transform.position + Random.insideUnitSphere * 50, Quaternion.identity);
             tempOb.transform.tag = "BossEnemie";
             Camera.main.GetComponent<CameraFollow>().target = tempOb.transform;
             yield return new WaitForSeconds(1);

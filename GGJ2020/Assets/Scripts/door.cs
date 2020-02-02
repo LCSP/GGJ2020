@@ -26,6 +26,8 @@ public class door : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(true);
         }
     }
+
+    //Reparar
     private void OnCollisionStay2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Player") && isLocked && Input.GetKeyDown(KeyCode.Return) && playerScript.life >= toUnlock)
@@ -33,9 +35,10 @@ public class door : MonoBehaviour
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             transform.GetComponent<SpriteRenderer>().sprite = SpritePuertaReparada;
             isLocked = false;
+            playerScript.life -= toUnlock;
         }
     }
-
+    //--------
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

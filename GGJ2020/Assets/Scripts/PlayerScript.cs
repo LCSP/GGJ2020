@@ -58,7 +58,7 @@ public class PlayerScript : MonoBehaviour
     {
         //Debug.Log(rg.velocity.y);
 
-        if(life < 0)
+        if(life <= 0)
         {
             SceneManager.LoadScene("death");
         }
@@ -159,13 +159,17 @@ public class PlayerScript : MonoBehaviour
                 {
                     hit.collider.gameObject.GetComponent<roof_enemy>().life -= 0.1f;
                 }
+                if (hit.collider.gameObject.CompareTag("Enemy_Orb"))
+                {
+                    hit.collider.gameObject.GetComponent<orb_enemy>().life -= 0.1f;
+                }
                 if (hit.collider.gameObject.CompareTag("BossEnemie"))
                 {
                     if (hit.collider.gameObject.name.Contains("Enemy"))
                     {
                         hit.collider.gameObject.GetComponent<EnemyScript>().life -= 0.1f;
                     }
-                    if (hit.collider.gameObject.name.Contains("Enemy3"))
+                    if (hit.collider.gameObject.name.Contains("Enem_jump3"))
                     {
                         hit.collider.gameObject.GetComponent<jumping_enemy>().life -= 0.1f;
                     }
@@ -258,7 +262,7 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-
+        TextoVida.text = life.ToString();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
