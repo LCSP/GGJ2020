@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class jumping_enemy : MonoBehaviour
 {
-
-    private bool isJumping = false;
     public Transform player;
     private Rigidbody2D rb;
     public float life = 20f;
@@ -39,9 +37,9 @@ public class jumping_enemy : MonoBehaviour
 
             }
         }
-        else
+        if(rb.velocity.y == 0)
         {
-            Debug.Log("saltando");
+            transform.GetComponent<Animator>().SetBool("jumping", false);
         }
     }
 

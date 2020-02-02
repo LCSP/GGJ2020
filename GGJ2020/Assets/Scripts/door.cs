@@ -1,40 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class door : MonoBehaviour
 {
     public int toUnlock;
-    public string toRoom;
-    public Transform testo;
+    public bool isLocked;
+    public Sprite SpritePuertaReparada;
+    PlayerScript playerScript;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(transform.GetChild(0).gameObject.activeSelf)
+        playerScript = PlayerScript.INSTANCE;
+        if (!isLocked)
         {
-            if (PlayerScript.INSTANCE.life >= toUnlock && Input.GetKey(KeyCode.Return))
-            {
-                //transform.GetChild(0).gameObject.SetActive(true);
-            }
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            transform.GetComponent<SpriteRenderer>().sprite = SpritePuertaReparada;
         }
     }
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player") && isLocked)
         {
             transform.GetChild(0).gameObject.SetActive(true);
-
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player") && isLocked && Input.GetKeyDown(KeyCode.Return) && playerScript.life >= toUnlock)
+        {
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            transform.GetComponent<SpriteRenderer>().sprite = SpritePuertaReparada;
+            isLocked = false;
         }
     }
 
