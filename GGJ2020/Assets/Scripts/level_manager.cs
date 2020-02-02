@@ -6,14 +6,13 @@ public class level_manager : MonoBehaviour
 {
     Vector2 PlayerSpawn;
     public static level_manager INSTANCE;
-    PlayerScript playerScript;
+    public PlayerScript playerScript;
 
     public GameObject[] Levels;
 
-    private void Awake()
+    void OnEnable()
     {
         PlayerSpawn = new Vector2(-23, -5.5f);
-        playerScript = PlayerScript.INSTANCE;
         INSTANCE = this;
         SetLevel(0, PlayerSpawn);
     }

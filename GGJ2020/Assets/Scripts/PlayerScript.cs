@@ -37,10 +37,6 @@ public class PlayerScript : MonoBehaviour
     [Range(0.0f, 1.0f)]
     public float jumpForce = 1.0f;
 
-
-    private float lowJumpMultiplier = 2f;
-    private float fallMultiplier = 2.5f;
-
     public static PlayerScript INSTANCE;
 
     bool lSound = false;
@@ -224,7 +220,6 @@ public class PlayerScript : MonoBehaviour
         if (rg.velocity.y != 0) isGrounded = false;
         else isGrounded = true;
 
-        Debug.Log(isGrounded);
         gameObject.GetComponent<Animator>().SetBool("EnPiso", isGrounded);
     }
     IEnumerator LaserSound()

@@ -6,6 +6,16 @@ public class door : MonoBehaviour
 {
     public int toUnlock;
     public bool isLocked;
+    PlayerScript playerScript;
+
+    private void Start()
+    {
+        playerScript = PlayerScript.INSTANCE;
+        if (!isLocked)
+        {
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        }
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -16,7 +26,7 @@ public class door : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Player") && isLocked && Input.GetKeyDown(KeyCode.Return))
+        if(collision.gameObject.CompareTag("Player") && isLocked && Input.GetKeyDown(KeyCode.Return) && playerScript.life >= toUnlock)
         {
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             isLocked = false;

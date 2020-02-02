@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class TP : MonoBehaviour
 {
-    level_manager levelManager;
+    public level_manager levelManager;
     public Vector2 otra_puerta;
     public int Index_del_otro_level;
 
-    private void Awake()
+    private void OnEnable()
     {
-        levelManager = level_manager.INSTANCE;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
